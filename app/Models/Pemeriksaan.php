@@ -20,7 +20,7 @@ class Pemeriksaan extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'id','pemesanan_id','layanan_id','user_id','case','nama_terperiksa','hasil','rating'
+        'id','pemesanan_id','layanan_id','user_id','case','nama_terperiksa','hasil','rating','riwayat_kesehatan','berkas_persetujuan',
     ];
 
     public function layanan(){

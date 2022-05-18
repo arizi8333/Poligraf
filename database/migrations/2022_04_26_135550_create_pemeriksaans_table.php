@@ -22,6 +22,8 @@ class CreatePemeriksaansTable extends Migration
             $table->string('case')->length(20);
             $table->string('nama_terperiksa')->length(25);
             $table->string('hasil');
+            $table->string('riwayat_kesehatan');
+            $table->string('berkas_persetujuan');
             $table->integer('rating');
             $table->timestamps();
         });

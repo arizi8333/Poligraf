@@ -78,6 +78,8 @@
                                     <th>Layanan</th>
                                     <th>Case</th>
                                     <th>Hasil</th>
+                                    <th>Riwayat</th>
+                                    <th>Persetujuan</th>
                                 </tr>
                         @forelse ($pemeriksaan as $p)
                                 <tr>
@@ -97,6 +99,26 @@
                                     @else
                                     <td>
                                         <a href="" style="text-decoration:none" id="hasil" data-id="{{$p->id}}" class="text-primary"><i class="bx bxs-file-blank"></i></a>
+                                    </td>
+                                    @endif
+
+                                    @if($p->riwayat_kesehatan == null || $p->riwayat_kesehatan == " ")
+                                    <td>
+                                        <a title="Tidak Tersedia" style="text-decoration:none" class="text-secondary"><i class="bx bxs-file-blank"></i></a>
+                                    </td>
+                                    @else
+                                    <td>
+                                        <a href="" style="text-decoration:none" id="riwayat" data-id="{{$p->id}}" class="text-primary"><i class="bx bxs-file-blank"></i></a>
+                                    </td>
+                                    @endif
+
+                                    @if($p->berkas_persetujuan == null || $p->berkas_persetujuan == " ")
+                                    <td>
+                                        <a title="Tidak Tersedia" style="text-decoration:none" class="text-secondary"><i class="bx bxs-file-blank"></i></a>
+                                    </td>
+                                    @else
+                                    <td>
+                                        <a href="" style="text-decoration:none" id="persetujuan" data-id="{{$p->id}}" class="text-primary"><i class="bx bxs-file-blank"></i></a>
                                     </td>
                                     @endif
                                 </tr>
@@ -182,6 +204,16 @@
     $(document).on('click', '#hasil', function() {
         var id = $(this).data('id');
         window.open("{{ url('hasil') }}/"+id);
+    });
+
+     $(document).on('click', '#riwayat', function() {
+        var id = $(this).data('id');
+        window.open("{{ url('riwayat_kesehatan') }}/"+id);
+    });
+
+    $(document).on('click', '#persetujuan', function() {
+        var id = $(this).data('id');
+        window.open("{{ url('berkas_persetujuan') }}/"+id);
     });
 
     // $( ".active" ).removeClass( "active" );

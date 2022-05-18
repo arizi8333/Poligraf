@@ -41,7 +41,11 @@
                             <div> : {{$pemesanan[0]->pemesanan->user->no_hp}}</div>
                             <div class="m-2">
                                 <button id="invoice" class="btn btn-sm btn-primary">Invoice</button>
-                                <button id="kuitansi" class="btn btn-sm btn-primary">Kuitansi</button>
+                                @if($pemesanan[0]->pemesanan->status == 1)
+                                    <button class="btn btn-sm btn-secondary">Kuitansi</button>
+                                @elseif($pemesanan[0]->pemesanan->status == 2)
+                                    <button id="kuitansi" class="btn btn-sm btn-primary">Kuitansi</button>
+                                @endif
                                 <button id="quotation" class="btn btn-sm btn-primary">Quotation</button>
                             </div>
                         </div>

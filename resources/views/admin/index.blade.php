@@ -65,6 +65,10 @@
 
     </div>
 
+    <div class="col-lg-4 mb-4 order-0">
+      <b class="font-weight-bold">Filter Tahun</b>
+      <input type="number" name="tahun" id="tahun" value="" class="form-control">
+    </div>
     <div class="col-lg-12 mb-4 order-0">
         <canvas id="grapik" style="min-height: 300px; height: 350px; max-height: 350px; max-width: 100%; display: block; width: 487px;" width="487" height="250"></canvas>
     </div>
@@ -78,79 +82,85 @@
 <script>
     
     $(document).ready( function () { 
-    graphline();
+    var tahun = $('#tahun').val(0);  
+    graphline(tahun);
 
-    function graphline(){
-    $.ajax({
-        url: '{{ url('grapik/admin') }}',
-        method: "GET",
-        dataType: "json",
-        success: function (data) {
-            var label = [];
-            var value = [];
-            var bg = ['rgba(255, 99, 132, 0.2)',
-                      'rgba(255, 159, 64, 0.2)',
-                      'rgba(255, 205, 86, 0.2)',
-                      'rgba(75, 192, 192, 0.2)',
-                      'rgba(54, 162, 235, 0.2)',
-                      'rgba(153, 102, 255, 0.2)',
-                      'rgba(201, 203, 207, 0.2)'];
-            var bc= [
-                      'rgb(255, 99, 132)',
-                      'rgb(255, 159, 64)',
-                      'rgb(255, 205, 86)',
-                      'rgb(75, 192, 192)',
-                      'rgb(54, 162, 235)',
-                      'rgb(153, 102, 255)',
-                      'rgb(201, 203, 207)'
-                    ];
-            console.log(data[0]);
-            for (var i in data[0]) {
-                var nama = data[0][i]["layanan"].split(' ')[0];
-                label.push(nama);
-                value.push(data[0][i]["total"]);
-                // console.log(data[0][i]["max(pemasukan)"]);
-            }
+    function graphline(tahun){
+      $.ajax({
+          url: '{{ url('grapik/admin') }}/'+tahun,
+          method: "GET",
+          dataType: "json",
+          success: function (data) {
+              var label = [];
+              var value = [];
+              var bg = ['rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(201, 203, 207, 0.2)'];
+              var bc= [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(201, 203, 207)'
+                      ];
+              console.log(data[0]);
+              for (var i in data[0]) {
+                  var nama = data[0][i]["layanan"].split(' ')[0];
+                  label.push(nama);
+                  value.push(data[0][i]["total"]);
+                  // console.log(data[0][i]["max(pemasukan)"]);
+              }
 
-            
-            console.log(label);
-            console.log(value);
-            var ctx = $('#grapik').get(0).getContext('2d');
-            var chart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: label,
-                    datasets: [{
-                      label: "Layanan",
-                      backgroundColor: bg, 
-                      borderColor: bc,
-                      borderWidth: 1,
-                      data: value
-                    }]
-                },
-                options: {    
-                  scales: {
-                      xAxes: [{
-                          barPercentage: 0.4
-                      }],
-                      yAxes: [{
-                          display: true,
-                          stacked: true,
-                          ticks: {
-                              stepSize: 1,
-                              min: 0, // minimum value
-                          },
-                          scaleLabel: {
-                            display: true,
-                            labelString: 'Total Pemesanan'
-                          }
+              
+              console.log(label);
+              console.log(value);
+              var ctx = $('#grapik').get(0).getContext('2d');
+              var chart = new Chart(ctx, {
+                  type: 'bar',
+                  data: {
+                      labels: label,
+                      datasets: [{
+                        label: "Layanan",
+                        backgroundColor: bg, 
+                        borderColor: bc,
+                        borderWidth: 1,
+                        data: value
                       }]
+                  },
+                  options: {    
+                    scales: {
+                        xAxes: [{
+                            barPercentage: 0.4
+                        }],
+                        yAxes: [{
+                            display: true,
+                            stacked: true,
+                            ticks: {
+                                stepSize: 1,
+                                min: 0, // minimum value
+                            },
+                            scaleLabel: {
+                              display: true,
+                              labelString: 'Total Pemesanan'
+                            }
+                        }]
+                    }
                   }
-                }
-            });
-        }
-    });  
-}
+              });
+          }
+      });  
+    }
+
+    $(document).on('change', '#tahun', function() {
+        var id = $('#tahun').val();
+        graphline(id);
+    });
 
     $( "#admin-menu-dashboard" ).addClass( "active" );
 

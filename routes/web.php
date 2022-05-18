@@ -144,6 +144,9 @@ Route::middleware(['auth'])->group(function () {
 });
 Route::get('bukti/{id}', [App\Http\Controllers\PemesananController::class,'bukti']);
 Route::get('hasil/{id}', [App\Http\Controllers\PemeriksaanController::class,'hasil']);
+Route::get('riwayat_kesehatan/{id}', [App\Http\Controllers\PemeriksaanController::class,'riwayat_kesehatan']);
+Route::get('berkas_persetujuan/{id}', [App\Http\Controllers\PemeriksaanController::class,'berkas_persetujuan']);
+
 Route::get('invoice/{id}', [App\Http\Controllers\PemesananController::class,'invoice']);
 Route::get('quotation/{id}', [App\Http\Controllers\PemesananController::class,'quotation']);
 Route::get('kuitansi/{id}', [App\Http\Controllers\PemesananController::class,'kuitansi']);
@@ -151,7 +154,7 @@ Route::get('kuitansi/{id}', [App\Http\Controllers\PemesananController::class,'ku
 Route::get('profile', [App\Http\Controllers\HomeController::class,'profile']);
 Route::post('profile/update', [App\Http\Controllers\HomeController::class,'updateprofile']);
 
-Route::get('grapik/admin', [App\Http\Controllers\KeuanganController::class,'grapik']);
+Route::get('grapik/admin/{id}', [App\Http\Controllers\KeuanganController::class,'grapik']);
 
 Route::get('notifikasi', [App\Http\Controllers\HomeController::class,'notifikasi']);
 

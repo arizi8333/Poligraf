@@ -71,6 +71,8 @@
                                     <th>Layanan</th>
                                     <th>Case</th>
                                     <th>Hasil</th>
+                                    <th>Riwayat</th>
+                                    <th>Persetujuan</th>
                                     <th>Action</th>
                                 </tr>
                         @forelse ($data1 as $p)
@@ -92,6 +94,27 @@
                                         <a href="" style="text-decoration:none" id="hasil" data-id="{{$p->id}}" class="text-primary"><i class="bx bxs-file-blank"></i></a>
                                     </td>
                                     @endif
+
+                                    @if($p->riwayat_kesehatan == null || $p->riwayat_kesehatan == " ")
+                                    <td>
+                                        <a title="Tidak Tersedia" style="text-decoration:none" class="text-secondary"><i class="bx bxs-file-blank"></i></a>
+                                    </td>
+                                    @else
+                                    <td>
+                                        <a href="" style="text-decoration:none" id="riwayat" data-id="{{$p->id}}" class="text-primary"><i class="bx bxs-file-blank"></i></a>
+                                    </td>
+                                    @endif
+
+                                    @if($p->berkas_persetujuan == null || $p->berkas_persetujuan == " ")
+                                    <td>
+                                        <a title="Tidak Tersedia" style="text-decoration:none" class="text-secondary"><i class="bx bxs-file-blank"></i></a>
+                                    </td>
+                                    @else
+                                    <td>
+                                        <a href="" style="text-decoration:none" id="persetujuan" data-id="{{$p->id}}" class="text-primary"><i class="bx bxs-file-blank"></i></a>
+                                    </td>
+                                    @endif
+
                                     <td>
                                         <a style="text-decoration:none" href="#" data-id="{{$p->id}}" id="edit" class="text-primary" title="Detail"><i class="bx bx-dots-vertical"></i></a>
                                     </td>
@@ -132,7 +155,13 @@
                         <input type="text" name="case" id="case" class="form-control">
 
                         <label for="nameBasic" class="form-label">Hasil</label>
-                        <input type="file" name="file" id="file" class="form-control">
+                        <input type="file" name="file" id="file" class="form-control"><br>
+
+                        <label for="nameBasic" class="form-label">Riwayat Kesehatan</label>
+                        <input type="file" name="file_kesehatan" id="file_kesehatan" class="form-control"><br>
+
+                        <label for="nameBasic" class="form-label">Berkas Persetujuan</label>
+                        <input type="file" name="file_persetujuan" id="file_persetujuan" class="form-control"><br>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -194,6 +223,16 @@
     $(document).on('click', '#hasil', function() {
         var id = $(this).data('id');
         window.open("{{ url('hasil') }}/"+id);
+    });
+
+    $(document).on('click', '#riwayat', function() {
+        var id = $(this).data('id');
+        window.open("{{ url('riwayat_kesehatan') }}/"+id);
+    });
+
+    $(document).on('click', '#persetujuan', function() {
+        var id = $(this).data('id');
+        window.open("{{ url('berkas_persetujuan') }}/"+id);
     });
 
     // $( ".active" ).removeClass( "active" );

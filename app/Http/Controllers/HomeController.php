@@ -110,7 +110,7 @@ class HomeController extends Controller
                     ->get();
         }else if($role_id == 'R03'){
             $id = auth()->user()->id;
-            $data = Pemesanan::where('user_id', $id)->where('status',0)->Orwhere('status',2)->get();
+            $data = Pemesanan::where('user_id', $id)->where('status','!=',1)->where('status','!=',3)->get();
         }
 
         return json_encode([

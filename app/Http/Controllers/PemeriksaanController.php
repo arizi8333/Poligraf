@@ -69,6 +69,8 @@ class PemeriksaanController extends Controller
                     'case'=>" ",
                     'nama_terperiksa'=>' ',
                     'hasil'=>"-",
+                    'riwayat_kesehatan'=>"-",
+                    'berkas_persetujuan'=>"-",
                     'rating'=>0
                 ]);
             }
@@ -80,6 +82,22 @@ class PemeriksaanController extends Controller
         $file = Pemeriksaan::where('id',$id)->first();
 
         $path = storage_path('app/'. $file->hasil);
+        
+        return response()->file($path);
+    }
+
+    public function riwayat_kesehatan($id){
+        $file = Pemeriksaan::where('id',$id)->first();
+
+        $path = storage_path('app/'. $file->riwayat_kesehatan);
+        
+        return response()->file($path);
+    }
+
+    public function berkas_persetujuan($id){
+        $file = Pemeriksaan::where('id',$id)->first();
+
+        $path = storage_path('app/'. $file->berkas_persetujuan);
         
         return response()->file($path);
     }
@@ -121,13 +139,20 @@ class PemeriksaanController extends Controller
 
     public function instruktur_update(Request $request){
         $file = $request->file('file');
+        $file1 = $request->file('file_kesehatan');
+        $file2 = $request->file('file_persetujuan');
+
         if ($file != null){
             if ($file->isValid()) {
                 $path = $file->store('public/hasil');
+                $path1 = $file1->store('public/riwayat');
+                $path2 = $file2->store('public/persetujuan');
                 Pemeriksaan::where('id',$request->id)->update([
                     'nama_terperiksa' => $request->nama,
                     'case' => $request->case,
                     'hasil' => $path,
+                    'riwayat_kesehatan' => $path1,
+                    'berkas_persetujuan' => $path2,
                 ]);
 
                 $data = Pemeriksaan::where('id',$request->id)->first();
