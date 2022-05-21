@@ -81,13 +81,13 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label for="nameBasic" class="form-label">Total Terperiksa</label>
-                                    <input type="text" name="total[]" class="form-control">
+                                    <input type="text" name="total[]" class="form-control total">
                                 </div>
                                 @endfor
                             </div>
                             <div class="modal-footer">    
                                 <a href="{{url('admin/pemesanan/index')}}" class="btn btn-outline-secondary">Back</a>
-                                <input type="submit" class="btn btn-primary" value="Submit">
+                                <input id="btn-submit" type="submit" class="btn btn-primary" value="Submit">
                             </div>
                         {{Form::close()}}
                     </div>
@@ -133,6 +133,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     $(document).ready( function () {
+    
+    $('#btn-submit').hide();
+
+    $(".total").change(function(){
+        $('#btn-submit').show();
+    });
 
     $('#form').attr('action', '{{ url('client/pemesanan/store') }}');
 

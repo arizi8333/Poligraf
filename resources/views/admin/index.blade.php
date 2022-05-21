@@ -67,7 +67,7 @@
 
     <div class="col-lg-4 mb-4 order-0">
       <b class="font-weight-bold">Filter Tahun</b>
-      <input type="number" name="tahun" id="tahun" value="" class="form-control">
+      <input type="number" name="tahun" id="tahun" value="2022" min="2022" placeholder="2022" class="form-control">
     </div>
     <div class="col-lg-12 mb-4 order-0">
         <canvas id="grapik" style="min-height: 300px; height: 350px; max-height: 350px; max-width: 100%; display: block; width: 487px;" width="487" height="250"></canvas>
@@ -82,7 +82,7 @@
 <script>
     
     $(document).ready( function () { 
-    var tahun = $('#tahun').val(0);  
+    var tahun = $('#tahun').val(2022);  
     graphline(tahun);
 
     function graphline(tahun){
